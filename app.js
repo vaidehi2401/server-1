@@ -1,19 +1,25 @@
 const http =require('http')
-const fs = require('fs')
+const fs = require('fs');
+const { buffer } = require('stream/consumers');
 const server = http.createServer((req, res)=>{
     const url = req.url;
     const method = req.method;
     if(req.url === '/'){
-        res.setHeader('Content-Type', 'text/html');
-        res.end(
-       
-           ` <form action="/message" method="POST">
-            <label>Name:</label>
-            <input type="text" name="username"></input>
-            <button type ="submit">Submit</button>
-            </form>`
-            
-        )
+        fs.readFile('formValues.txt', 'utf8', (err, data) => {
+            if (err) {
+                data = "No data submitted yet!";
+            }
+
+            res.setHeader('Content-Type', 'text/html');
+            res.end(`
+                <h2>${data}</h2>
+                <form action="/message" method="POST">
+                    <label>Name:</label>
+                    <input type="text" name="username">
+                    <button type="submit">Submit</button>
+                </form>
+            `);
+        });
     }
     else{
         if(req.url == '/message'){
