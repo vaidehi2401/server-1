@@ -11,6 +11,7 @@ const requestHandler = ((req, res)=>{
                 res.setHeader('Content-Type', 'text/html');
                 res.end(`
                     <h2>${data}</h2>
+                    <h1>This is form</h1>
                     <form action="/message" method="POST">
                         <label>Name:</label>
                         <input type="text" name="username">
@@ -42,4 +43,10 @@ const requestHandler = ((req, res)=>{
             }
         }
 })
-module.exports= requestHandler;
+function fun(){
+    console.log("Heyy")
+}
+module.exports= 
+{requestHandler,
+ fun
+}
