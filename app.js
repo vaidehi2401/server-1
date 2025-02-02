@@ -1,10 +1,12 @@
-const http =require('http')
-const routes = require("./routes");
 
-const { buffer } = require('stream/consumers');
-const server = http.createServer(routes)
-
-const port =  3000;
-server.listen(port, ()=>{
-    console.log("server is running")
+const express = require('express')
+const app=express();
+app.use((req, res, next)=>{
+    console.log('In the middleware');
+    next();
 })
+app.use((req, res, next)=>{
+    console.log('In another middleware');
+    res.send('<h1>Hello from Express</h1>')
+});
+app.listen(3000);
